@@ -1,6 +1,6 @@
 {
 	"nodes":[
-		{"id":"e9f05753d6570830","type":"file","file":"articles/Win32API ログ出力.md","x":-380,"y":-640,"width":400,"height":400},
+		{"id":"e9f05753d6570830","type":"file","file":"articles/Win32API_LogOutput.md","x":-380,"y":-640,"width":400,"height":400},
 		{"id":"739da62cbdf489cd","type":"file","file":"articles/a12ff24fd8271d.md","x":-180,"y":-180,"width":400,"height":400}
 	],
 	"edges":[]
