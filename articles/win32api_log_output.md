@@ -3,9 +3,9 @@ title: Win32API Log Output
 emoji: 🎃
 type: tech
 topics:
-  - markdown
   - win32api
-published: false
+  - C
+published: true
 ---
 
 Win32APIを使ってログ出力機能を持つWindowsアプリケーション（DLL等も含む）をC言語で作成する例
@@ -19,7 +19,7 @@ Win32APIを使ってログ出力機能を持つWindowsアプリケーション�
 extern "C" {
 #endif
 
-	void debug_printf(const char* format, ...);
+void debug_printf(const char* format, ...);
 
 #ifdef __cplusplus
 }
