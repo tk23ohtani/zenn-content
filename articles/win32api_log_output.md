@@ -1,16 +1,18 @@
 ---
-title: "Win32API Log Output"
-emoji: "🎃"
-type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [markdown]
+title: Win32API Log Output
+emoji: 🎃
+type: tech
+topics:
+  - markdown
+  - win32api
 published: false
 ---
 
-Win32APIを使ってログ出力機能を持つWindowsデスクトップアプリケーションをC言語で作成する例
+Win32APIを使ってログ出力機能を持つWindowsアプリケーション（DLL等も含む）をC言語で作成する例
 
-- `dprintf.h`
+- ヘッダファイル
 
-```h
+```c:dprintf.h
 #pragma once
 
 #ifdef __cplusplus
@@ -24,9 +26,9 @@ extern "C" {
 #endif
 ```
 
-- `dprintf.c`
+- ソースファイル
 
-```c
+```c:dprintf.c
 #include <Windows.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -47,7 +49,7 @@ void debug_printf(const char* format, ...)
 
 - 使用例
 
-```c
+```c:sample.c
 #include "dprintf.h"
 
 int main()
