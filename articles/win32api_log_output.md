@@ -1,4 +1,10 @@
-
+---
+title: "Win32API Log Output"
+emoji: "🎃"
+type: "tech" # tech: 技術記事 / idea: アイデア
+topics: [markdown]
+published: false
+---
 
 Win32APIを使ってログ出力機能を持つWindowsデスクトップアプリケーションをC言語で作成する例
 
