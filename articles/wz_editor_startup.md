@@ -1,11 +1,12 @@
 ---
 title: Wz Editor 10で学ぶText-Cマクロ入門：フォルダ内HTMLの一括操作
-emoji: 🎃
+emoji: 📃
 type: tech
 topics:
-  - C
-  - WzEditor
-published: false
+  - テキストエディタ
+  - マクロ
+  - wzeditor
+published: true
 ---
 
 # はじめに
