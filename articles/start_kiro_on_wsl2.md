@@ -33,13 +33,13 @@ WSL2上で使っていくのだが、Power Shell経由でのコマンド起動�
 KiroのAgentはターミナルを一つ独立して起動して使うことになるので、AgentがWSL2上で直接実行できるようにしておく必要がある。
 その設定は`Terminal > Integrated > Default Profile: Windows`で設定する。複数のディストリビューションをインストールしている場合も対応できる。
 
-![alt text](../images/start_kiro-5.png)
+![alt text](/images/start_kiro-5.png)
 
 - リモート起動
 
 Microsoft謹製のWSL拡張は使えないようなので、次の`Open Remote - WSL`を使わせてもらう。
 
-![alt text](../images/start_kiro-6.png)
+![alt text](/images/start_kiro-6.png)
 
 Windows側のユーザーフォルダの下にある`%USERPROFILE%.kiro\argv.json`ファイルに次の項目を追加する。
 
@@ -56,7 +56,7 @@ Windows側のユーザーフォルダの下にある`%USERPROFILE%.kiro\argv.jso
 
 Kiroを再起動して左下のリモート接続アイコンからWSL2に接続して起動する。場合によってはアカウントの再認証になることがある。
 
-![alt text](../images/start_kiro-7.png)
+![alt text](/images/start_kiro-7.png)
 
 # WSL2のLinuxディストリビューションをC:ドライブ以外に移動
 
