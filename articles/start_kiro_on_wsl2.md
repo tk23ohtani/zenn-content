@@ -58,8 +58,65 @@ Kiroを再起動して左下のリモート接続アイコンからWSL2に接続
 
 ![alt text](../images/start_kiro-7.png)
 
+# WSL2のLinuxディストリビューションをC:ドライブ以外に移動
 
+標準ディストリビューションで開発を進めていくとC:ドライブの容量がどんどん圧迫されてくるので、C:ドライブから追い出したい。そこで、D:ドライブにディストリビューションを移動する方法を記す。
 
+- お悩みポイント
+    - WindowsでWeb系アプリケーションをWSL2上で作りたい
+    - WSL2のディストリビューションを分けて使いたい
+    - C:ドライブは空けておきたい
 
+# WSL2のディストリビューションをC:ドライブ以外に作る
+
+WSL2は標準インストールされているものとする。
+
+## ディストリビューションを準備
+
+標準の`Ubuntu`ディストリビューションを複製して、D:ドライブに`DevUbuntu`として新たにLinuxディストリビューションを作る。インストールされている状態を確認する。
+
+```powershell
+wsl --list --verbose
+```
+
+問題なくインストールされていれば、標準の`Ubuntu`ディストリビューションが見えるはずなので、これをエクスポートする。
+
+```
+  NAME         STATE           VERSION
+* Ubuntu       Stopped         2
+```
+
+標準の`Ubuntu`ディストリビューションをエクスポートしてD:ドライブ上に圧縮ファイルを作る。
+
+```powershell
+wsl --export Ubuntu D:\DevUbuntu.tar
+```
+
+## ディストリビューションを作成
+
+作成した圧縮ファイルをD:ドライブ上にインポートして新たに`DevUbuntu`として新たにLinuxディストリビューションを作る。インポート先のディレクトリは予め作っておくと良い。圧縮ファイルが不要な場合は、`rm`コマンドで削除しておくと良い。
+
+```powershell
+mkdir D:\WSL2
+wsl --import DevUbuntu D:\WSL2 D:\DevUbuntu.tar
+rm D:\DevUbuntu.tar
+```
+
+## デフォルトのディストリビューションを指定（任意）
+
+標準ディストリビューションは可能な限り温存しておくので、デフォルトのディストリビューションを今回作成したディストリビューションに変更しておく。
+
+```powershell
+wsl --set-default DevUbuntu
+wsl --list --verbose
+```
+
+デフォルトのディストリビューションには`*`が付く。
+
+```
+  NAME         STATE           VERSION
+* DevUbuntu    Stopped         2
+  Ubuntu       Stopped         2
+```
 
 
