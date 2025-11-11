@@ -22,7 +22,7 @@ _Created by T.Ohtani at 2025/08/30_
 
 ともかくKiroをダウンロードする。
 
-![alt text](../images/start_kiro-4.png)
+![alt text](/images/start_kiro-4.png)
 
 起動するとアカウント登録を要求される。今回はGoogleアカウントで登録した。
 
