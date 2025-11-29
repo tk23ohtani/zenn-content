@@ -14,7 +14,7 @@ published: false
 
 前処理として、WSL2を使えるようにするには、ホストマシンの仮想アプリケーションを使えるようにしておく必要がある。超ニッチ？なオレオレ環境は、VMWare上のWindowsがホストマシンになるので、VMWare仮想マシンのプロセッサ設定で「この仮想マシンでハイパーバイザーアプリケーションを有効にする」にチェックを入れておく。
 
-![alt text](../images/wsl2_for_developer-1.png)
+![alt text](/images/wsl2_for_developer-1.png)
 
 まず、WSL2のコンポーネントをインストールする。ディストリビューションは後から手動で入れる。
 
@@ -34,9 +34,9 @@ mkdir C:¥WSL
 wsl --install Ubuntu --location C:¥WSL --name DevUbuntu
 ```
 
-![alt text](../images/wsl2_for_developer-2.png)
+![alt text](/images/wsl2_for_developer-2.png)
 
 - WSLアプリを起動したところ
 
-![alt text](../images/wsl2_for_developer-3.png)
+![alt text](/images/wsl2_for_developer-3.png)
 
