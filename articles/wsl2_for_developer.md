@@ -1,5 +1,5 @@
 ---
-title: 初めてのWSL2
+title: インストール先を指定したWSL2のセットアップ
 emoji: 🐧
 type: tech
 topics:
@@ -8,7 +8,7 @@ topics:
 published: false
 ---
 
-# オレオレWSL2
+# インストール先を指定したWSL2のセットアップ
 
 コンテンツそのものはGit等にリモート保存するので作業用ディスクとしている`D:`ドライブ等にディストリビューションを保存することで`C:`ドライブの空きを確保しておくようなオレオレな使い方の手順を示す。
 
@@ -16,12 +16,18 @@ published: false
 
 ![alt text](/images/wsl2_for_developer-1.png)
 
+## WSLコンポーネントの導入
+
 まず、WSL2のコンポーネントをインストールする。ディストリビューションは後から手動で入れる。
 
 ```ps
 # 必要なオプション コンポーネントのみをインストール
 wsl --install --no-distribution
 ```
+
+![alt text](/images/wsl2_for_developer-3.png)
+
+## ディストリビューションの導入
 
 - ディストリビューション名
 - インストール先
@@ -34,9 +40,6 @@ mkdir C:¥WSL
 wsl --install Ubuntu --location C:¥WSL --name DevUbuntu
 ```
 
+インストールの課程で、使用者のユーザー名とパスワードを設定して、セットアップを完了する。
+
 ![alt text](/images/wsl2_for_developer-2.png)
-
-- WSLアプリを起動したところ
-
-![alt text](/images/wsl2_for_developer-3.png)
-
