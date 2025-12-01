@@ -1,5 +1,5 @@
 ---
-title: WSL2上で初めてのKiro
+title: VMWare上のWindows11でWSL2をターゲットとするKiro IDE及びKiro-CLIを使う
 emoji: 👻
 type: tech
 topics:
@@ -8,7 +8,7 @@ topics:
 published: false
 ---
 
-# WSL2上で初めてのKiro
+# VMWare上のWindows11でWSL2をターゲットとするKiro IDE及びKiro-CLIを使う
 
 WSL2上で使うには最初にちょっとした準備をして進める方がいいのでその手順について残しておく。
 

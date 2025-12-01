@@ -37,6 +37,10 @@ Kiro CLIをKiro IDEで開いたワークスペースで使用すると、以下�
 
 ## 1. Kiro CLIのインストール
 
+Kiro IDEで新規ターミナルを開く。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-2.png)
+
 WSL2のUbuntuターミナルで以下のコマンドを実行します：
 
 ```bash
@@ -53,6 +57,8 @@ sudo apt-get install -f
 rm kiro-cli.deb
 ```
 
+![alt text](/images/kiro_cli_on_ide_wsl2-3.png)
+
 インストールが完了したら、バージョンを確認します：
 
 ```bash
@@ -61,17 +67,51 @@ kiro-cli --version
 
 正常にインストールされていれば、Kiro CLIのバージョン情報が表示されます。
 
-> **アンインストール方法**: `sudo apt remove kiro-cli`
+![alt text](/images/kiro_cli_on_ide_wsl2-5.png)
 
-## 2. IDC Accountによる認証
+## 2. Builder IDによる認証
 
-Kiro CLIを使用するには、IDC（Identity and Access Control）アカウントで認証する必要があります。
+Kiro CLIを使用するには認証する必要があります。
 
 ### 認証の開始
 
+初回起動、もしくはログインコマンドで認証が開始されます。
+
 ```bash
-kiro-cli auth login
+kiro-cli login
 ```
+
+複数の認証方法がありますが、個人利用の場合は`Builder ID`による認証を選択します。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-10.png)
+
+認証方法を選択すると、表示されているURLを開けと言ってくるので、Ctrl+クリック（もしくはコピーしてアドレス貼り付け）で開きます。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-11.png)
+
+ここでは、Waiting Listに登録していたりして既にKiro利用の登録済みGoogleアカウントで認証しています。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-6.png)
+
+認証コードが正しいか目視で確認します。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-12.png)
+
+Kiro-CLIの利用を許可します。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-7.png)
+
+リクエストが無事に承認されました。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-8.png)
+
+承認される、ターミナルでもKiro-CLIのログインが成功していることを確認します。
+
+![alt text](/images/kiro_cli_on_ide_wsl2-13.png)
+
+ちなみにKiro-CLIを終了するには`/quit`コマンドを使います。
+
+
 
 このコマンドを実行すると、以下のような流れで認証が行われます：
 
@@ -86,7 +126,7 @@ kiro-cli auth login
 現在の認証状態を確認するには：
 
 ```bash
-kiro-cli auth status
+kiro-cli status
 ```
 
 出力例：
@@ -102,7 +142,7 @@ kiro-cli auth status
 トークンの有効期限が切れた場合は、再度ログインします：
 
 ```bash
-kiro-cli auth refresh
+kiro-cli refresh
 ```
 
 ### ログアウト
@@ -110,7 +150,7 @@ kiro-cli auth refresh
 認証を解除する場合：
 
 ```bash
-kiro-cli auth logout
+kiro-cli logout
 ```
 
 > **注意**: WSL2環境でブラウザが自動的に開かない場合は、表示されたURLを手動でブラウザにコピー＆ペーストしてください。
