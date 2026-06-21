@@ -8,12 +8,10 @@ topics:
 published: false
 ---
 
-Dev Containerを使った開発環境を利用する。
+前提：Dev Containerを使った開発環境を利用する。
 
-実際にテストが通るかどうか。
-自動的に組み込まれるライブラリコードに実装していくものとする。
-
-
+実際にテストが通るかどうか。  
+なお、自動的に組み込まれるライブラリコードに実装していくものとする。  
 
 ```rust:lib.rs
 // TDD in Rust のライブラリコード
@@ -27,7 +25,7 @@ mod tests {
 }
 ```
 
-
+テストが成功していればOK!
 
 ```text
 running 1 test
@@ -36,16 +34,16 @@ test tests::it_works ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
 
-TODO Lists
+TODO Listsを確認しておこう。
 
 ```markdown
 - [ ] $5 + 10 CHF = $10
 - [ ] $5 * 2 = $10
 ```
 
-最初のテスト。
+最初のテストを作る。
 
-```rust
+```rust:lib.rs
 #[cfg(test)]
 mod tests {
     use crate::Dollar;
@@ -58,6 +56,8 @@ mod tests {
 }
 ```
 
+TODO Listsに追加する。
+
 ```markdown
 - [ ] $5 + 10 CHF = $10
 - [ ] $5 * 2 = $10
@@ -67,90 +67,91 @@ mod tests {
 ```
 
 まず、`Dollar`クラス相当なものを作る。
-```rust
+
+```rust:lib.rs
 struct Dollar {}
 ```
 
 次に、コンストラクタ相当なものを作る。
-```rust
+
+```rust:lib.rs
 impl Dollar {
     fn new(amount: i32) -> Self {}
 }
 ```
 
 times()メソッドを作る。
-```rust
+
+```rust:lib.rs
 impl Dollar {
-    fn new(amount: i32) -> Self {}
+    // ...
     fn times(&self, _multiplier: i32) -> Self {}
 }
 ```
 
 equals()メソッドを作る。
-```rust
+
+```rust:lib.rs
 impl Dollar {
-    fn new(amount: i32) -> Self {}
-    fn times(&self, _multiplier: i32) -> Self {}
+    // ...
     fn equals(&self, _other: &Self) -> bool {}
 }
 ```
 
-amountフィールドを作る。
+最後に、amountフィールドを作る。
 
-```rust
+```rust:lib.rs
 struct Dollar {
     amount: i32,
 }
 ```
 
-ビルドエラーを解消。
+ここまでの状態ではビルドエラーになるので解消する。
 
-```rust
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: 0 }
     }
-    fn times(&self, _multiplier: i32) {}
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
-テストが実行できるようになった。
+ビルドが通ったら、テストが実行できるようになったことを確認する。
 
-```test
+```text
 thread 'tests::test_multiplication' (22347) panicked at src/lib.rs:28:9:
 assertion `left == right` failed
   left: 10
  right: 0
 ```
 
-テストはRedなので、とりあえずGreenになるようにする。
+テストはRedなので、ひとまず最短でGreenになるようにする。
 
-```rust
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: 10 }
     }
-    fn times(&self, _multiplier: i32) {}
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
 マジックナンバーを解消する。
 
-```rust
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: 5 * 2 }
     }
-    fn times(&self, _multiplier: i32) {}
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
-一手で解消できないので、times()メソッドに移動。この時、selfそのものを変更するので、変更可能な状態で渡す必要がある。
+一手で解消できないので、初期化時からtimes()メソッドに移動。  
+この時、selfそのものを変更するので、変更可能な状態で渡す必要がある。
 
-```rust
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: 0 }
@@ -158,26 +159,27 @@ impl Dollar {
     fn times(&mut self, _multiplier: i32) {
         self.amount = 5 * 2
     }
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
-Rustの制約によりエラーになるので、テストを修正。
+Rustの制約によりエラーになるので、テスト側も修正している。
 
-```rust
+```rust:lib.rs
 #[cfg(test)]
 mod tests {
-    use crate::Dollar;
+    // ...
     #[test]
     fn test_multiplication() {
         let mut five = Dollar::new(5);
-        five.times(2);
-        assert_eq!(10, five.amount);
+    // ...
     }
 }
 ```
 
-```rust
+テストから5が渡ってくるので、それをコンストラクタで設定する。
+
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: _amount }
@@ -185,11 +187,13 @@ impl Dollar {
     fn times(&mut self, _multiplier: i32) {
         self.amount = 5 * 2
     }
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
-```rust
+times()メソッドの中でamountを使えばいい。
+
+```rust:lib.rs
 impl Dollar {
     fn new(_amount: i32) -> Dollar {
         Dollar { amount: _amount }
@@ -197,60 +201,42 @@ impl Dollar {
     fn times(&mut self, _multiplier: i32) {
         self.amount = self.amount * 2
     }
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
+テストから渡る引数の値が2だからそれを使える。
 
-
-
-```rust
+```rust:lib.rs
 impl Dollar {
-    fn new(_amount: i32) -> Dollar {
-        Dollar { amount: _amount }
-    }
+    // ...
     fn times(&mut self, _multiplier: i32) {
         self.amount = self.amount * _multiplier
     }
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
+重複排除のため三項演算子を使う。（あくまで重複排除のためｗ）
 
-```rust
+```rust:lib.rs
 impl Dollar {
-    fn new(_amount: i32) -> Dollar {
-        Dollar { amount: _amount }
-    }
+    // ...
     fn times(&mut self, _multiplier: i32) {
         self.amount *= _multiplier
     }
-    fn equals(&self, _other: &Self) {}
+    // ...
 }
 ```
 
-```rust
+ここまでで一つだけTODO Listsが更新できる。
+
+```markdown
+- [ ] $5 + 10 CHF = $10
+- [x] $5 * 2 = $10
+- [ ] amountのprivateにする
+- [ ] Dollarの副作用をどうする？
+- [ ] Moneyの丸め処理をどうする？
 ```
 
-```rust
-```
-
-```rust
-```
-
-```rust
-```
-
-```rust
-```
-
-```rust
-```
-
-```rust
-```
-
-
-
-
-
+２章につづく。
