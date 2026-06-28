@@ -33,7 +33,7 @@ mod tests {
     fn test_multiplication() {
         let mut five = Dollar::new(5);
         let mut product = five.times(2);
-        assert!(Dollar::new(10).equals(product));
+        assert_eq!(Dollar::new(10), product);
         product = five.times(3);
         assert_eq!(15, product.amount);
     }
@@ -46,6 +46,28 @@ mod tests {
 }
 ```
 
+❌Rustでは比較演算子のオーバロードを使わないと比較できないので、`PartialEq`トレイトを使用する。
+
+```rust:lib.rs
+impl PartialEq for Dollar {
+    fn eq(&self, _other: &Self) -> bool {
+        self.amount == _other.amount
+    }
+}
+```
+
+オーバーロードにはDebug指定が必要。
+
+```rust:lib.rs
+#[derive(Debug)]
+pub struct Dollar {
+    amount: i32,
+}
+```
+
+✅テストが通った。  
+もう一つも書き換える。
+
 ```rust:lib.rs
 #[cfg(test)]
 mod tests {
@@ -55,9 +77,9 @@ mod tests {
     fn test_multiplication() {
         let mut five = Dollar::new(5);
         let mut product = five.times(2);
-        assert!(Dollar::new(10).equals(product));
+        assert_eq!(Dollar::new(10), product);
         product = five.times(3);
-        assert!(Dollar::new(15).equals(product));
+        assert_eq!(Dollar::new(15), product);
     }
 
     #[test]
@@ -80,9 +102,9 @@ mod tests {
     fn test_multiplication() {
         let mut five = Dollar::new(5);
         // let mut product = five.times(2);
-        assert!(Dollar::new(10).equals(five.times(2)));
+        assert_eq!(Dollar::new(10), five.times(2));
         // product = five.times(3);
-        assert!(Dollar::new(15).equals(five.times(3)));
+        assert_eq!(Dollar::new(15), five.times(3));
     }
 
     #[test]

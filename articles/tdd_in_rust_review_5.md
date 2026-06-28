@@ -29,7 +29,6 @@ DollarをコピーしてFrancのテストを書いてみる。
 #[cfg(test)]
 mod tests {
     use crate::Dollar;
-    use crate::Franc;
 
     #[test]
     fn test_multiplication() {
@@ -56,6 +55,7 @@ mod tests {
 ここはコピペ駆動。
 
 ```rust:lib.rs
+#[derive(Debug)]
 pub struct Franc {
     amount: i32,
 }
@@ -69,15 +69,27 @@ impl Franc {
             amount: self.amount * _multiplier,
         }
     }
-    fn equals(&self, _other: Self) -> bool {
+    fn equals(&self, _other: Franc) -> bool {
+        self.amount == _other.amount
+    }
+}
+
+impl PartialEq for Franc {
+    fn eq(&self, _other: &Franc) -> bool {
         self.amount == _other.amount
     }
 }
 ```
 
-
+宣言追加。
 
 ```rust:lib.rs
+#[cfg(test)]
+mod tests {
+    use crate::Dollar;
+    use crate::Franc;
+    // ...
+}
 ```
 
 amountはもともとprivateだった。
