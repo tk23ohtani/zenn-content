@@ -1,5 +1,5 @@
 ---
-title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 #6
+title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 §7
 emoji: ⚙
 type: tech
 topics:
@@ -28,6 +28,23 @@ TODO Listsを確認しておこう。
 ```
 
 FrancとDollarの型を比較していく。
+
+```rust:lib.rs
+mod tests {
+    // ...
+    #[test]
+    fn test_equality() {
+        assert!(Dollar::new(5).equals(Dollar::new(5)));
+        assert!(!Dollar::new(5).equals(Dollar::new(6)));
+        assert!(Franc::new(5).equals(Franc::new(5)));
+        assert!(!Franc::new(5).equals(Franc::new(6)));
+        assert!(!Franc::new(5).equals(Dollar::new(5)));
+    }
+    // ...
+}
+```
+
+❌失敗してしまう。
 `std::any::Any`の`type_id()`を使ってみよう。
 
 ```rust:lib.rs
@@ -59,11 +76,11 @@ pub struct Money {
 
 ```rust:lib.rs
 impl Money {
-    // ...
     fn equals(&self, _other: Money) -> bool {
         self.amount == _other.amount
         && self.typeid == _other.typeid
     }
+    // ...
 }
 ```
 
@@ -78,7 +95,7 @@ impl MoneyTrait for Dollar {
         }
     }
 }
-
+// ...
 impl MoneyTrait for Franc {
     fn new(_amount: i32) -> Money {
         Money {

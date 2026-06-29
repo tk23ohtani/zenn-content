@@ -1,5 +1,5 @@
 ---
-title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 #6
+title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 §8
 emoji: ⚙
 type: tech
 topics:
@@ -40,28 +40,28 @@ mod tests {
 
     #[test]
     fn test_multiplication() {
-        let mut five = Money::new(5);
+        let mut five = Money::dollar(5);
         assert_eq!(Dollar::new(10), five.times(2));
         assert_eq!(Dollar::new(15), five.times(3));
     }
     // ...
 ```
 
-❌コンパイラが親切にMoneyにnewメソッドが無いことを教えてくれる。
+❌コンパイラが親切にMoneyにdollarメソッドが無いことを教えてくれる。
 
 ```rust:lib.rs
 impl Money {
-    fn new(_amount: i32) -> Money {
+    // ...
+    fn dollar(_amount: i32) -> Money {
         Money {
             amount: _amount,
-            typeid: TypeId::of::<Money>(),
+            typeid: TypeId::of::<Dollar>(),
         }
     }
-    // ...
 }
 ```
 
-✅testがGreenになり、
+✅testがGreenになり、残りの箇所もFactory Methodを使うようテストを書き換える。
 
 ```rust:lib.rs
 mod tests {
@@ -89,52 +89,46 @@ mod tests {
 }
 ```
 
-
-インスタンス化した時の型を比較することにする。
-
-```rust:lib.rs
-```
-
-なので、インスタンス化した時に型を持たせる。
+✅素晴らしい、テストはGreenのままだ。  
+Francも同様にFactory Methodを使うよう、テストを書き換える。
 
 ```rust:lib.rs
+mod tests {
+    // ...
+    #[test]
+    fn test_equality() {
+        assert!(Money::dollar(5).equals(Money::dollar(5)));
+        assert!(!Money::dollar(5).equals(Money::dollar(6)));
+        assert!(Money::franc(5).equals(Money::franc(5)));
+        assert!(!Money::franc(5).equals(Money::franc(6)));
+        assert!(!Money::franc(5).equals(Money::dollar(5)));
+    }
+
+    #[test]
+    fn test_franc_multiplication() {
+        let mut five = Money::franc(5);
+        assert_eq!(Money::franc(10), five.times(2));
+        assert_eq!(Money::franc(15), five.times(3));
+    }
 }
 ```
 
-❌ビルドエラー？！  
-timesメソッドでもインスタンス化しているな。
+❌コンパイラが親切にMoneyにdollarメソッドが無いことを教えてくれる。
+
 
 ```rust:lib.rs
 impl Money {
-    fn times(&mut self, _multiplier: i32) -> Money {
+    // ...
+    fn franc(_amount: i32) -> Money {
         Money {
-            amount: self.amount * _multiplier,
-            typeid: self.typeid
+            amount: _amount,
+            typeid: TypeId::of::<Franc>(),
         }
     }
-    // ...
 }
 ```
 
-✅testがGreenになり、FrancとDollarの比較が等しくならないようになった。もちろんレートが1:1ではない時ではある。
-
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-
-
-
-
-
-
-
-
-
-
+✅テストがGreenになった。
 
 ```markdown
 - [ ] $5 + 10 CHF = $10
@@ -151,42 +145,6 @@ impl Money {
 - [x] equalsの一般化
 - [x] timesの一般化
 - [x] FrancとDollarを比較する
+- [ ] 通過の概念
+- [ ] testFrancMultiplicationを削除する？
 ```
-
-
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-✅testはGreenのままだ。  
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-
-```rust:lib.rs
-```
-

@@ -1,5 +1,5 @@
 ---
-title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 #2
+title: Rust でのテスト駆動開発（TDD）を学んだ復習の記録 §2
 emoji: ⚙
 type: tech
 topics:
